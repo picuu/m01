@@ -27,6 +27,22 @@ No se deben declarar previamente ni asignar un tipo.
 
 Una variable puede ser modificada: `numero=$((numero-1))`. Para ejecutar el contenido de una variable se debera hacer `$nombre_variable`, pero para mostrar el contenido sin ejectutar se deberá hacer `echo $nombre_variable`.
 
+Una variable numérica puede ser incrementada y decrementada.
+
+```bash
+$ num=5
+$ echo $num
+>> 5
+
+$ (( num++ ))
+$ echo $num
+>> 6
+
+$ (( num-- ))
+$ echo $num
+>> 5
+```
+
 ## Comillas
 
 * **Comillas simples**: interpreta literalmente la cadena de carácteres que contiene.
@@ -52,9 +68,12 @@ $ ls -l /usr/bin/sort
 
 ## Comandos utiles
 
-**echo** para enviar texto por la salida estándard.
+**echo** para enviar texto por la salida estándard. Con el parámetro `-e` se podrán usar carácteres especiales como saltos de línea (\n) y tabulaciones (\t).
+
 ```bash
-echo "Hello World"
+$ echo -e "Hello\nWorld"
+>> Hello
+>> World
 ```
 
 **sleep** para "parar" la ejecución durante el número de segundos que se especifiquen como parámetro.
@@ -68,6 +87,11 @@ read -p "Mensaje para el usuario" variableDefinida
 ```
 
 **$(( expresión matemática ))** para procesar expresiones aritméticas y lógicas.
+
+```bash
+$ echo "Suma = $(( 1 + 3 ))"
+>> Suma = 4
+```
 
 **test** para evaluar si una expresión es cierta o falsa.
 
@@ -93,7 +117,15 @@ No muestra nada por la salida estándard. Se puede acceder al resultado desde la
     * pemisos de lectura `-r`
   * **Operaciones lógicas**
     * AND `-a`
-    * OR `-o`  
+    * OR `-o`
+   
+```bash
+test 5 -ge 1
+if [ $? = 0 ] ;
+  then echo "5 es igual o mayor a 1"
+  else echo "5 no es igual ni mayor a 1"
+fi
+```
 
 ## Variables de entorno
 
@@ -193,6 +225,18 @@ for element in $list
 do
   echo "$element"
 done
+
+# también se puede iterar sobre un rango
+
+for i in {1..20..2} ; do  # iterar del 1 al 20 avanzando de dos en dos
+ echo "Iteración $i"
+done
+
+# hasta se puede iterar sobre la salida de un comando
+
+for file in `ls` ; do
+ echo $file
+done
 ```
 
 ## Otros comandos
@@ -218,13 +262,15 @@ done
 
 `date` proporciona la fecha actual, para poder formatearla en año_mes_dia -> `$(date +%Y_%m_%d)`
 
-### Creacion / modificacion de usuario
+### Creacion / modificacion de usuario y grupos
 
 Es necesario hacer estos comandos con permioss de superusuario.
 
 * `useradd -m -s /bin/bash -c "comentario" "nombre"`: Añade un usuario con comentario.
 * `useradd -m -s /bin/bash -G "grupo" "nombre"`: Añade un usuario con grupo.
 * `echo "name:password" | sudo chpasswd`: Modifica la contraseña del usuario.
+
+* `groupadd nombre`: Crea un grupo
 
 ### Modificar ownership / permisos
 
