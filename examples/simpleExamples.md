@@ -22,6 +22,35 @@ echo "mult $num1 * $num2 = " $((num1*num2))
 echo "modul $num2 % $num1 = " $((num2%num1))
 echo "potencia $num1 ** $num2 =" $((num1**num2))
 ```
+
+## Condicionales
+
+
+```bash
+string1="hola"
+string2="holi"
+
+if [ "$string1" = "$string2" ]; then
+    echo "$string1 y $string2 son iguales"
+else
+    echo "$string1 y $string2 no son iguales"
+fi
+```
+
+```bash
+read -p "Introduce un numero para saber si es par o impar" userNumber
+
+if [[ "$userNumber" =~ ^[0-9]+$ ]]; then
+    if [ $((userNumber % 2 )) -eq 0 ]; then
+        echo "$userNumber es par"
+    else
+        echo "$userNumber no es par"
+    fi
+else
+    echo "El valor introducido no es un numero positivo"
+fi
+```
+
 ## Estructuras iterativas
 
 ```bash
@@ -53,6 +82,22 @@ done
 for file in *; do
   echo "file: $file"
 done
+
+for file in $(ls); do
+    echo "file: $file"
+done
+```
+
+## Test
+
+```bash
+userDirectory="/etc"
+
+if test -d "$userDirectory" && test -w "$userDirectory"; then
+    echo "El directorio existe y tiene permisos de escritura"
+else
+    echo "El directorio no existe y/o no tiene permioss de escritura"
+fi
 ```
 
 ## Formatear datos de un fichero
