@@ -19,6 +19,7 @@ done
 ```
 
 ## Get groups from user
+
 ```bash
 read -p "Introdueix el nom d'usuari per veure a quins grups pertany: " userName
 
@@ -39,4 +40,57 @@ if [[ -n "$secondaryGroups" ]]; then
 else
     echo "No pertany a cap grup secundari."
 fi
+```
+
+## Get groups from user v2
+
+```bash
+username=$1
+
+for line in `cat /etc/group | grep $username`; do
+  cols=(${line//:/ })
+  echo ${cols[0]}
+done
+```
+
+## Delete files given by params with confirmation
+
+```bash
+for file in $*; do
+
+  isValidInput=false
+  userInput="n"
+
+  while ! [ "$isValidInput" = "true" ]; do
+    echo ;
+    read -n1 -r -p "Do you want to delete *$file* ? (y/n): " key
+
+    if [[ "$key" = "y" || "$key" = "n" ]]; then
+      isValidInput=true
+      userInput=$key
+    else echo -e "\nInvalid input. Type 'y' (yes) or 'n' (no).\n"
+    fi
+  done
+
+  echo ;
+
+  if [ "$userInput" = "y" ]; then
+    rm $file &> /dev/null
+    test $? -eq 0 && echo "File *$file* removed successfully." || echo "File *$file* couldn't be removed."
+  fi
+done
+```
+
+## Slice a file in the given amount of equal slices
+
+The `slice-` at the end of the command is to give a prefix to all sliced files.
+
+```bash
+file_name=$1
+slices=$2
+
+split --number=$slices $file_name slice-
+
+echo "$file_name splitted in $slices parts:"
+ls -l | grep -oE '(slice-.*)$'
 ```
