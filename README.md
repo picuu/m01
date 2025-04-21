@@ -264,7 +264,7 @@ done
 
 ### Creacion / modificacion de usuario y grupos
 
-Es necesario hacer estos comandos con permioss de superusuario.
+Es necesario hacer estos comandos con permisos de superusuario.
 
 * `useradd -m -s /bin/bash -c "comentario" "nombre"`: Añade un usuario con comentario.
 * `useradd -m -s /bin/bash -G "grupo" "nombre"`: Añade un usuario con grupo.
@@ -275,9 +275,30 @@ Es necesario hacer estos comandos con permioss de superusuario.
 ### Modificar ownership / permisos
 
 ```bash
-sudo chown :grupop1 /directorio1
+sudo chown usuario:grupop1 /directorio1
 sudo chmod 770 /directorio1
 ```
+
+### Touch
+
+* `touch file.txt`: Crea un fichero.
+* `echo "$word" >> "$file"`: Añade una lina al final del fichero.
+
+### Split
+
+* `split -n l/n --verbose file.txt`: Divide el fichero en n secciones y muestra los ficheros creados con `verbose`.
+
+### Create directory from route
+
+* `mkdir -p /my/route`: Crea un directorio desde la ruta.
+
+ ### Redirigir mensaje de error
+ 
+ * `2>/dev/null`
+
+### exec
+
+* Reemplaza el proceso actual por el proceso que le pasas como argumento, como por ejemplo `sudo exec proceso parametros`
 
 ---
 
