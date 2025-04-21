@@ -1,4 +1,24 @@
-# Get groups from user
+# Advanced examples
+
+## Crear ficheros y organizar palabras
+
+```bash
+words="digalo mansana alo manzana"
+
+for word in $words; do
+    initial=$(echo "$word" | cut -c1-1 )
+    file="$initial.txt"
+    if test -f $file; then
+        echo "$file ya existe"
+    else
+        echo "Creando $file..."
+        touch $file
+    fi
+    echo "$word" >> $file
+done
+```
+
+## Get groups from user
 ```bash
 read -p "Introdueix el nom d'usuari per veure a quins grups pertany: " userName
 
