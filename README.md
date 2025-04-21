@@ -17,13 +17,15 @@ Se recomienda que la extensión del fichero sea `.sh`.
 
 Para que el interprete sepa con que shell debe ejecutar el proceso, la primera línea del archivo deberá ser `#!/bin/bash`.
 
-Para poder ejecutar habrá que dar permisos al fichero creado `chmod u+x *.sh`
+Para poder ejecutar habrá que dar permisos al fichero creado con `chmod u+x *.sh`
 
 ## Definicion de variables
 
 Para definir una variable se utiliza el nombre de la variable, el símbolo igual y el contenido. Por ejemplo `nombre_variable="contenido string"`. No debe haber espacios entre el nombre de la variable, el símbolo de asignación y el contenido.
 
 No se deben declarar previamente ni asignar un tipo.
+
+Una variable puede ser modificada: `numero=$((numero-1))`. Para ejecutar el contenido de una variable se debera hacer `$nombre_variable`, pero para mostrar el contenido sin ejectutar se deberá hacer `echo $nombre_variable`.
 
 ## Comillas
 
@@ -137,7 +139,7 @@ fi
 
 ### Case
 
-Busca cuál es el primer patron que cumple la variable indicada y ejecuta el bloque de codigo correspondiente
+Busca cuál es el primer patrón que cumple la variable indicada y ejecuta el bloque de código correspondiente. Un patrón cumplirá con las estructuras de regex, como por ejemplo `[Hh]ola` para comprobar si la variable es "hola" o "Hola", o bien `h*` para comprobar que empieze por dicha letra.
 
 ```bash
 case $var in
@@ -158,9 +160,9 @@ esac
 ### While
 
 ```bash
-while condicion
+while condición
 do
- #codigo a ejecutar
+ #código a ejecutar
 done
 ```
 
@@ -168,14 +170,15 @@ done
 
 
 ```bash
-until condicion
+until condición
 do
- #codigo a ejecutar
+ #código a ejecutar
 done
 ```
 
 ### For
 
+Ejecutara un bloque de sentencias de forma iterativa. Puede iterar x numero de veces o iterar sobre una lista de elementos separados por espacios en blanco.
 
 ```bash
 for (( c=1; c<=5; c++ ))
@@ -194,7 +197,26 @@ done
 
 ## Otros comandos
 
-añadir grep, cut, tar, y uso de variables
+### Grep
+
+* `-oE 'regexExpression'`: Muestra la parte que coincide con el pratrón `-o`, y permite Regex extendido `-E`.
+* `-q`: No printa nada por pantalla (quiet), pero devuelve el codigo `1` o `0`.
+
+### Cut
+
+* `-d 'delimitador'`: Añade un delimitador.
+* `-f1`, `-f2`,...: Selecciona un campo. 
+* `-cX-X`: Indica que se cortará por carácteres y no por campos, específicamente de X a X carácter. 
+
+### Tar
+
+* `tar czf "$file_name"`: Empaqueta el archivo y lo comprime.
+* `tar xzf "$file_name"`: Extraer el archivo comprimido.
+* `tar tzf "$file_name"`: Mostrar el contenido sin extraerlo.
+
+### Date
+
+`date` proporciona la fecha actual, para poder formatearla en año_mes_dia -> `$(date +%Y_%m_%d)`
 
 ---
 
