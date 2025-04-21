@@ -218,6 +218,21 @@ done
 
 `date` proporciona la fecha actual, para poder formatearla en año_mes_dia -> `$(date +%Y_%m_%d)`
 
+### Creacion / modificacion de usuario
+
+Es necesario hacer estos comandos con permioss de superusuario.
+
+* `useradd -m -s /bin/bash -c "comentario" "nombre"`: Añade un usuario con comentario.
+* `useradd -m -s /bin/bash -G "grupo" "nombre"`: Añade un usuario con grupo.
+* `echo "name:password" | sudo chpasswd`: Modifica la contraseña del usuario.
+
+### Modificar ownership / permisos
+
+```bash
+sudo chown :grupop1 /directorio1
+sudo chmod 770 /directorio1
+```
+
 ---
 
 **Autores**: [picuu](https://github.com/picuu) & [annacano0](https://github.com/annacano0)  
